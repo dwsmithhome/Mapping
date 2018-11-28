@@ -1,0 +1,16 @@
+PUT /soldier/WW1/1
+{
+    "name": "Frank Jubilee Shaw",
+    "dod": "10/11/1916",
+    "address": "4 Albert St",
+    "description": "Frank Jubilee Shaw, Corporal 49422, 10th Battalion, Cheshire Regiment. Died 10th October 1916 in Somme, France, aged 29",
+    "earlylife" : "Husband of Mrs F. J. Shaw, of 61 Chester Rd, Macclesfield, Cheshire.",
+    "commemoration" : "Corporal Frank Shaw is buried in Grave Ref. VIII. B. 28. in the Warloy-Baillon Communal Cemetery Extension, France. The Commonwealth War Graves Commission holds casualty details for Corporal Frank Shaw. In Macclesfield, Corporal Frank Shaw is commemorated on the Park Green, Town Hall, and St Michael’s Church war memorials.",
+    "militaryservice" : "",
+    "postcode": "SK116PT",
+    "location": {
+      "lat": 53.25986,
+      "lon": -2.13544
+    },
+    "everdelivered": false
+}
