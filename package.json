@@ -1,0 +1,36 @@
+{
+  "name": "Memories",
+  "version": "1.0.0",
+  "description": "map browser",
+  "main": "app/server.js",
+  "directories": {
+    "app": "app",
+    "public": "public",
+    "files": "app/files",
+    "views": "app/views"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/server.js",
+    "dev": "nodemon app/server.js"
+  },
+  "keywords": [
+    "map",
+    "history"
+  ],
+  "author": "Dave Smith",
+  "license": "ISC",
+  "dependencies": {
+    "connect-redis": "^3.4.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "nodemon": "^1.18.5",
+    "pug": "^2.0.3",
+    "redis": "^2.8.0",
+    "sync-request": "^6.0.0"
+  }
+}
