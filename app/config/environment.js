@@ -4,9 +4,9 @@ const   _ =  require('lodash'),
 module.exports = {
     version:    fs.readFileSync(__dirname + '/../../version').toString().trim(),
     port :      _.get(process, 'env.PORT') || 8082,
-    restURL : 'http://172.23.0.3:9200',
+    restURL : 'http://elasticsearch_mapping:9200',
     outputPath: __dirname + '/../public/output',
     redisOptions: {
-        host: 'memories_redis'
+        host: 'mapping_redis'
     }
 };
