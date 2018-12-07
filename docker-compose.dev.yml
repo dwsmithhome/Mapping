@@ -1,13 +1,13 @@
 # Use root/example as user/password credentials
 version: '3.0'
 services:
-  memories_redis:
+  mapping_redis:
     image: redis
     ports:
       - 6381:6379
     networks:
-      - esnet
-  memories:
+      - mappingnet
+  mapping:
     build: .
     ports:
       - 8082:8082
@@ -17,14 +17,17 @@ services:
     env_file:
         - ./.env
     networks:
-      - esnet
+      - mappingnet
     links:
-      - memories_redis
-  elasticsearch:
+      - mapping_redis
+    depends_on:
+      - mapping_redis
+      - elasticsearch_mapping
+  elasticsearch_mapping:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
-    container_name: elasticsearch
+    container_name: elasticsearch_mapping
     environment:
-      - cluster.name=docker-cluster
+      - cluster.name=mapping-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -32,41 +35,46 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - esdata1:/usr/share/elasticsearch/data
+      - esdata_mapping1:/usr/share/elasticsearch_mapping/data
     ports:
       - 9200:9200
     networks:
-      - esnet
-  elasticsearch2:
+      - mappingnet
+  elasticsearch_mapping2:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
-    container_name: elasticsearch2
+    container_name: elasticsearch_mapping2
     environment:
-      - cluster.name=docker-cluster
+      - cluster.name=mapping-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "discovery.zen.ping.unicast.hosts=elasticsearch"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch_mapping"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - esdata2:/usr/share/elasticsearch/data
+      - esdata_mapping2:/usr/share/elasticsearch_mapping/data
     networks:
-      - esnet
+      - mappingnet
   kibana:
     image: docker.elastic.co/kibana/kibana:6.4.2
     ports:
       - "5601:5601"
+    environment:
+          - "ELASTICSEARCH_URL=http://elasticsearch_mapping:9200"
     links:
-      - elasticsearch
+      - elasticsearch_mapping
+    depends_on:
+      - elasticsearch_mapping
+      - elasticsearch_mapping2
     networks:
-      - esnet
+      - mappingnet
 
 volumes:
-  esdata1:
+  esdata_mapping1:
     driver: local
-  esdata2:
+  esdata_mapping2:
     driver: local
 
 networks:
-  esnet:
+  mappingnet:
